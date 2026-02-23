@@ -14,6 +14,10 @@ import com.meetsmore.nittei.domain.IDQuery;
 import com.meetsmore.nittei.domain.RRuleOptions;
 import com.meetsmore.nittei.domain.RecurrenceQuery;
 import com.meetsmore.nittei.domain.StringQuery;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import java.time.Instant;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,7 +41,7 @@ public final class EventApi {
 
     public record CreateEventRequestBody(
         @JsonDeserialize(using = StrictIdDeserializer.class)
-        ID calendarId,
+        @NotNull ID calendarId,
         String title,
         String description,
         String eventType,
@@ -46,8 +50,8 @@ public final class EventApi {
         String location,
         CalendarEventStatus status,
         Boolean allDay,
-        Instant startTime,
-        long duration,
+        @NotNull Instant startTime,
+        @Positive long duration,
         Boolean busy,
         RRuleOptions recurrence,
         List<Instant> exdates,
@@ -61,7 +65,9 @@ public final class EventApi {
     ) {
     }
 
-    public record CreateBatchEventsRequestBody(List<CreateEventRequestBody> events) {
+    public record CreateBatchEventsRequestBody(
+        @NotEmpty List<@Valid CreateEventRequestBody> events
+    ) {
     }
 
     public record CreateBatchEventsAPIResponse(List<EventDtos.CalendarEventDTO> events) {
@@ -95,9 +101,9 @@ public final class EventApi {
     }
 
     public record GetEventsForUsersInTimeSpanBody(
-        List<ID> userIds,
-        Instant startTime,
-        Instant endTime,
+        @NotEmpty List<ID> userIds,
+        @NotNull Instant startTime,
+        @NotNull Instant endTime,
         Boolean generateInstancesForRecurring,
         Boolean includeTentative,
         Boolean includeNonBusy

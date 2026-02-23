@@ -3,6 +3,7 @@ package com.meetsmore.nittei.api.event;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.meetsmore.nittei.api.shared.BaseApiController;
 import com.meetsmore.nittei.api.structs.event.EventApi;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,7 +31,7 @@ public class EventController extends BaseApiController {
     public ResponseEntity<EventApi.CalendarEventResponse> createEventAdmin(
         @RequestHeader HttpHeaders headers,
         @PathVariable String userId,
-        @RequestBody EventApi.CreateEventRequestBody body
+        @Valid @RequestBody EventApi.CreateEventRequestBody body
     ) {
         return eventService.createEventAdmin(headers, userId, body);
     }
@@ -39,7 +40,7 @@ public class EventController extends BaseApiController {
     public ResponseEntity<EventApi.CreateBatchEventsAPIResponse> createBatchEventsAdmin(
         @RequestHeader HttpHeaders headers,
         @PathVariable String userId,
-        @RequestBody EventApi.CreateBatchEventsRequestBody body
+        @Valid @RequestBody EventApi.CreateBatchEventsRequestBody body
     ) {
         return eventService.createBatchEventsAdmin(headers, userId, body);
     }
@@ -47,7 +48,7 @@ public class EventController extends BaseApiController {
     @PostMapping("/events/search")
     public ResponseEntity<EventApi.SearchEventsAPIResponse> searchEventsAdmin(
         @RequestHeader HttpHeaders headers,
-        @RequestBody EventApi.SearchEventsRequestBody body
+        @Valid @RequestBody EventApi.SearchEventsRequestBody body
     ) {
         return eventService.searchEventsAdmin(headers, body);
     }
@@ -55,7 +56,7 @@ public class EventController extends BaseApiController {
     @GetMapping("/events/meta")
     public ResponseEntity<EventApi.GetEventsByMetaAPIResponse> getEventsByMetaAdmin(
         @RequestHeader HttpHeaders headers,
-        @ModelAttribute EventApi.GetEventsByMetaQueryParams query
+        @Valid @ModelAttribute EventApi.GetEventsByMetaQueryParams query
     ) {
         return eventService.getEventsByMetaAdmin(headers, query);
     }
@@ -63,7 +64,7 @@ public class EventController extends BaseApiController {
     @PostMapping("/events/timespan")
     public ResponseEntity<EventApi.GetEventsForUsersInTimeSpanAPIResponse> getEventsInTimespanAdmin(
         @RequestHeader HttpHeaders headers,
-        @RequestBody EventApi.GetEventsForUsersInTimeSpanBody body
+        @Valid @RequestBody EventApi.GetEventsForUsersInTimeSpanBody body
     ) {
         return eventService.getEventsInTimespanAdmin(headers, body);
     }
@@ -72,7 +73,7 @@ public class EventController extends BaseApiController {
     public ResponseEntity<EventApi.GetEventsByCalendarsAPIResponse> getEventsByCalendarsAdmin(
         @RequestHeader HttpHeaders headers,
         @PathVariable String userId,
-        @ModelAttribute EventApi.GetEventsByCalendarsQueryParams query
+        @Valid @ModelAttribute EventApi.GetEventsByCalendarsQueryParams query
     ) {
         return eventService.getEventsByCalendarsAdmin(headers, userId, query);
     }
@@ -97,7 +98,7 @@ public class EventController extends BaseApiController {
     public ResponseEntity<EventApi.CalendarEventResponse> updateEventAdmin(
         @RequestHeader HttpHeaders headers,
         @PathVariable String eventId,
-        @RequestBody JsonNode rawBody
+        @Valid @RequestBody JsonNode rawBody
     ) {
         return eventService.updateEventAdmin(headers, eventId, rawBody);
     }
@@ -114,7 +115,7 @@ public class EventController extends BaseApiController {
     public ResponseEntity<EventApi.GetEventInstancesAPIResponse> getEventInstancesAdmin(
         @RequestHeader HttpHeaders headers,
         @PathVariable String eventId,
-        @ModelAttribute EventApi.GetEventInstancesQueryParams query
+        @Valid @ModelAttribute EventApi.GetEventInstancesQueryParams query
     ) {
         return eventService.getEventInstancesAdmin(headers, eventId, query);
     }
@@ -122,7 +123,7 @@ public class EventController extends BaseApiController {
     @PostMapping("/user/events/delete_many")
     public ResponseEntity<Void> deleteManyEventsAdmin(
         @RequestHeader HttpHeaders headers,
-        @RequestBody EventApi.DeleteManyEventsRequestBody body
+        @Valid @RequestBody EventApi.DeleteManyEventsRequestBody body
     ) {
         return eventService.deleteManyEventsAdmin(headers, body);
     }
@@ -130,7 +131,7 @@ public class EventController extends BaseApiController {
     @PostMapping("/events")
     public ResponseEntity<EventApi.CalendarEventResponse> createEvent(
         @RequestHeader HttpHeaders headers,
-        @RequestBody EventApi.CreateEventRequestBody body
+        @Valid @RequestBody EventApi.CreateEventRequestBody body
     ) {
         return eventService.createEvent(headers, body);
     }
@@ -147,7 +148,7 @@ public class EventController extends BaseApiController {
     public ResponseEntity<EventApi.CalendarEventResponse> updateEvent(
         @RequestHeader HttpHeaders headers,
         @PathVariable String eventId,
-        @RequestBody JsonNode rawBody
+        @Valid @RequestBody JsonNode rawBody
     ) {
         return eventService.updateEvent(headers, eventId, rawBody);
     }
@@ -164,7 +165,7 @@ public class EventController extends BaseApiController {
     public ResponseEntity<EventApi.GetEventInstancesAPIResponse> getEventInstances(
         @RequestHeader HttpHeaders headers,
         @PathVariable String eventId,
-        @ModelAttribute EventApi.GetEventInstancesQueryParams query
+        @Valid @ModelAttribute EventApi.GetEventInstancesQueryParams query
     ) {
         return eventService.getEventInstances(headers, eventId, query);
     }

@@ -11,6 +11,9 @@ import com.meetsmore.nittei.domain.providers.google.GoogleCalendarAccessRole;
 import com.meetsmore.nittei.domain.providers.google.GoogleCalendarListEntry;
 import com.meetsmore.nittei.domain.providers.outlook.OutlookCalendar;
 import com.meetsmore.nittei.domain.providers.outlook.OutlookCalendarAccessRole;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import java.time.DayOfWeek;
 import java.time.Instant;
 import java.util.List;
@@ -41,7 +44,7 @@ public final class CalendarApi {
     }
 
     public record CreateCalendarRequestBody(
-        String timezone,
+        @NotBlank String timezone,
         DayOfWeek weekStart,
         String name,
         String key,
@@ -49,10 +52,18 @@ public final class CalendarApi {
     ) {
     }
 
-    public record AddSyncCalendarRequestBody(IntegrationProvider provider, ID calendarId, String extCalendarId) {
+    public record AddSyncCalendarRequestBody(
+        @NotNull IntegrationProvider provider,
+        @NotNull ID calendarId,
+        @NotBlank String extCalendarId
+    ) {
     }
 
-    public record RemoveSyncCalendarRequestBody(IntegrationProvider provider, ID calendarId, String extCalendarId) {
+    public record RemoveSyncCalendarRequestBody(
+        @NotNull IntegrationProvider provider,
+        @NotNull ID calendarId,
+        @NotBlank String extCalendarId
+    ) {
     }
 
     public record GetCalendarEventsIcalQueryParams(Instant startTime, Instant endTime) {
@@ -102,7 +113,11 @@ public final class CalendarApi {
     public record GetUserFreeBusyAPIResponse(List<EventInstance> busy, String userId) {
     }
 
-    public record MultipleFreeBusyRequestBody(List<ID> userIds, Instant startTime, Instant endTime) {
+    public record MultipleFreeBusyRequestBody(
+        @NotEmpty List<ID> userIds,
+        @NotNull Instant startTime,
+        @NotNull Instant endTime
+    ) {
     }
 
     public record MultipleFreeBusyAPIResponse(@JsonValue Map<ID, List<EventInstance>> value) {

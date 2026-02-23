@@ -3,6 +3,8 @@ package com.meetsmore.nittei.api.structs.schedule;
 import com.meetsmore.nittei.domain.ID;
 import com.meetsmore.nittei.domain.Schedule;
 import com.meetsmore.nittei.domain.ScheduleRule;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 public final class ScheduleApi {
@@ -22,10 +24,18 @@ public final class ScheduleApi {
     public record SchedulePathParams(ID scheduleId) {
     }
 
-    public record CreateScheduleRequestBody(String timezone, List<ScheduleRule> rules, Object metadata) {
+    public record CreateScheduleRequestBody(
+        @NotBlank String timezone,
+        @NotNull List<ScheduleRule> rules,
+        Object metadata
+    ) {
     }
 
-    public record UpdateScheduleRequestBody(String timezone, List<ScheduleRule> rules, Object metadata) {
+    public record UpdateScheduleRequestBody(
+        @NotBlank String timezone,
+        @NotNull List<ScheduleRule> rules,
+        Object metadata
+    ) {
     }
 
     public record GetSchedulesByMetaQueryParams(String key, String value, Integer skip, Integer limit) {

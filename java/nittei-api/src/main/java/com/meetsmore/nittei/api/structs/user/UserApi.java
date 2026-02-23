@@ -3,6 +3,8 @@ package com.meetsmore.nittei.api.structs.user;
 import com.meetsmore.nittei.domain.ID;
 import com.meetsmore.nittei.domain.IntegrationProvider;
 import com.meetsmore.nittei.domain.User;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 public final class UserApi {
@@ -19,13 +21,13 @@ public final class UserApi {
     public record CreateUserRequestBody(Object metadata, String externalId, ID userId) {
     }
 
-    public record OAuthIntegrationRequestBody(String code, IntegrationProvider provider) {
+    public record OAuthIntegrationRequestBody(@NotBlank String code, @NotNull IntegrationProvider provider) {
     }
 
     public record RemoveIntegrationPathParams(IntegrationProvider provider, ID userId) {
     }
 
-    public record OAuthOutlookRequestBody(String code) {
+    public record OAuthOutlookRequestBody(@NotBlank String code) {
     }
 
     public record UpdateUserRequestBody(String externalId, Object metadata) {

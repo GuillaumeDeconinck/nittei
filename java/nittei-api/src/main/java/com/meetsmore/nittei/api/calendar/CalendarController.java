@@ -2,6 +2,7 @@ package com.meetsmore.nittei.api.calendar;
 
 import com.meetsmore.nittei.api.shared.BaseApiController;
 import com.meetsmore.nittei.api.structs.calendar.CalendarApi;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,7 +30,7 @@ public class CalendarController extends BaseApiController {
     public ResponseEntity<CalendarApi.CalendarResponse> createCalendarAdmin(
         @RequestHeader HttpHeaders headers,
         @PathVariable String userId,
-        @RequestBody CalendarApi.CreateCalendarRequestBody body
+        @Valid @RequestBody CalendarApi.CreateCalendarRequestBody body
     ) {
         return calendarService.createCalendarAdmin(headers, userId, body);
     }
@@ -38,7 +39,7 @@ public class CalendarController extends BaseApiController {
     public ResponseEntity<CalendarApi.GetCalendarsByUserAPIResponse> getCalendarsAdmin(
         @RequestHeader HttpHeaders headers,
         @PathVariable String userId,
-        @ModelAttribute CalendarApi.GetCalendarsByUserQueryParams query
+        @Valid @ModelAttribute CalendarApi.GetCalendarsByUserQueryParams query
     ) {
         return calendarService.getCalendarsAdmin(headers, userId, query);
     }
@@ -46,7 +47,7 @@ public class CalendarController extends BaseApiController {
     @GetMapping("/calendar/meta")
     public ResponseEntity<CalendarApi.GetCalendarsByMetaAPIResponse> getCalendarsByMetaAdmin(
         @RequestHeader HttpHeaders headers,
-        @ModelAttribute CalendarApi.GetCalendarsByMetaQueryParams query
+        @Valid @ModelAttribute CalendarApi.GetCalendarsByMetaQueryParams query
     ) {
         return calendarService.getCalendarsByMetaAdmin(headers, query);
     }
@@ -71,7 +72,7 @@ public class CalendarController extends BaseApiController {
     public ResponseEntity<CalendarApi.CalendarResponse> updateCalendarAdmin(
         @RequestHeader HttpHeaders headers,
         @PathVariable String calendarId,
-        @RequestBody CalendarApi.UpdateCalendarRequestBody body
+        @Valid @RequestBody CalendarApi.UpdateCalendarRequestBody body
     ) {
         return calendarService.updateCalendarAdmin(headers, calendarId, body);
     }
@@ -80,7 +81,7 @@ public class CalendarController extends BaseApiController {
     public ResponseEntity<CalendarApi.GetCalendarEventsAPIResponse> getCalendarEventsAdmin(
         @RequestHeader HttpHeaders headers,
         @PathVariable String calendarId,
-        @ModelAttribute CalendarApi.GetCalendarEventsQueryParams query
+        @Valid @ModelAttribute CalendarApi.GetCalendarEventsQueryParams query
     ) {
         return calendarService.getCalendarEventsAdmin(headers, calendarId, query);
     }
@@ -89,7 +90,7 @@ public class CalendarController extends BaseApiController {
     public ResponseEntity<String> exportCalendarIcalAdmin(
         @RequestHeader HttpHeaders headers,
         @PathVariable String calendarId,
-        @ModelAttribute CalendarApi.GetCalendarEventsIcalQueryParams query
+        @Valid @ModelAttribute CalendarApi.GetCalendarEventsIcalQueryParams query
     ) {
         return calendarService.exportCalendarIcalAdmin(headers, calendarId, query);
     }
@@ -98,7 +99,7 @@ public class CalendarController extends BaseApiController {
     public ResponseEntity<CalendarApi.GetGoogleCalendarsAPIResponse> getGoogleCalendarsAdmin(
         @RequestHeader HttpHeaders headers,
         @PathVariable String userId,
-        @ModelAttribute CalendarApi.GetGoogleCalendarsQueryParams query
+        @Valid @ModelAttribute CalendarApi.GetGoogleCalendarsQueryParams query
     ) {
         return calendarService.getGoogleCalendarsAdmin(headers, userId, query);
     }
@@ -107,7 +108,7 @@ public class CalendarController extends BaseApiController {
     public ResponseEntity<CalendarApi.GetOutlookCalendarsAPIResponse> getOutlookCalendarsAdmin(
         @RequestHeader HttpHeaders headers,
         @PathVariable String userId,
-        @ModelAttribute CalendarApi.GetOutlookCalendarsQueryParams query
+        @Valid @ModelAttribute CalendarApi.GetOutlookCalendarsQueryParams query
     ) {
         return calendarService.getOutlookCalendarsAdmin(headers, userId, query);
     }
@@ -116,7 +117,7 @@ public class CalendarController extends BaseApiController {
     public ResponseEntity<CalendarApi.CalendarResponse> addSyncCalendarAdmin(
         @RequestHeader HttpHeaders headers,
         @PathVariable String userId,
-        @RequestBody CalendarApi.AddSyncCalendarRequestBody body
+        @Valid @RequestBody CalendarApi.AddSyncCalendarRequestBody body
     ) {
         return calendarService.addSyncCalendarAdmin(headers, userId, body);
     }
@@ -125,7 +126,7 @@ public class CalendarController extends BaseApiController {
     public ResponseEntity<CalendarApi.CalendarResponse> removeSyncCalendarAdmin(
         @RequestHeader HttpHeaders headers,
         @PathVariable String userId,
-        @RequestBody CalendarApi.RemoveSyncCalendarRequestBody body
+        @Valid @RequestBody CalendarApi.RemoveSyncCalendarRequestBody body
     ) {
         return calendarService.removeSyncCalendarAdmin(headers, userId, body);
     }
@@ -133,7 +134,7 @@ public class CalendarController extends BaseApiController {
     @PostMapping("/calendar")
     public ResponseEntity<CalendarApi.CalendarResponse> createCalendar(
         @RequestHeader HttpHeaders headers,
-        @RequestBody CalendarApi.CreateCalendarRequestBody body
+        @Valid @RequestBody CalendarApi.CreateCalendarRequestBody body
     ) {
         return calendarService.createCalendar(headers, body);
     }
@@ -141,7 +142,7 @@ public class CalendarController extends BaseApiController {
     @GetMapping("/calendar")
     public ResponseEntity<CalendarApi.GetCalendarsByUserAPIResponse> getCalendars(
         @RequestHeader HttpHeaders headers,
-        @ModelAttribute CalendarApi.GetCalendarsByUserQueryParams query
+        @Valid @ModelAttribute CalendarApi.GetCalendarsByUserQueryParams query
     ) {
         return calendarService.getCalendars(headers, query);
     }
@@ -166,7 +167,7 @@ public class CalendarController extends BaseApiController {
     public ResponseEntity<CalendarApi.CalendarResponse> updateCalendar(
         @RequestHeader HttpHeaders headers,
         @PathVariable String calendarId,
-        @RequestBody CalendarApi.UpdateCalendarRequestBody body
+        @Valid @RequestBody CalendarApi.UpdateCalendarRequestBody body
     ) {
         return calendarService.updateCalendar(headers, calendarId, body);
     }
@@ -175,7 +176,7 @@ public class CalendarController extends BaseApiController {
     public ResponseEntity<CalendarApi.GetCalendarEventsAPIResponse> getCalendarEvents(
         @RequestHeader HttpHeaders headers,
         @PathVariable String calendarId,
-        @ModelAttribute CalendarApi.GetCalendarEventsQueryParams query
+        @Valid @ModelAttribute CalendarApi.GetCalendarEventsQueryParams query
     ) {
         return calendarService.getCalendarEvents(headers, calendarId, query);
     }
@@ -184,7 +185,7 @@ public class CalendarController extends BaseApiController {
     public ResponseEntity<String> exportCalendarIcal(
         @RequestHeader HttpHeaders headers,
         @PathVariable String calendarId,
-        @ModelAttribute CalendarApi.GetCalendarEventsIcalQueryParams query
+        @Valid @ModelAttribute CalendarApi.GetCalendarEventsIcalQueryParams query
     ) {
         return calendarService.exportCalendarIcal(headers, calendarId, query);
     }
@@ -192,7 +193,7 @@ public class CalendarController extends BaseApiController {
     @GetMapping("/calendar/provider/google")
     public ResponseEntity<CalendarApi.GetGoogleCalendarsAPIResponse> getGoogleCalendars(
         @RequestHeader HttpHeaders headers,
-        @ModelAttribute CalendarApi.GetGoogleCalendarsQueryParams query
+        @Valid @ModelAttribute CalendarApi.GetGoogleCalendarsQueryParams query
     ) {
         return calendarService.getGoogleCalendars(headers, query);
     }
@@ -200,7 +201,7 @@ public class CalendarController extends BaseApiController {
     @GetMapping("/calendar/provider/outlook")
     public ResponseEntity<CalendarApi.GetOutlookCalendarsAPIResponse> getOutlookCalendars(
         @RequestHeader HttpHeaders headers,
-        @ModelAttribute CalendarApi.GetOutlookCalendarsQueryParams query
+        @Valid @ModelAttribute CalendarApi.GetOutlookCalendarsQueryParams query
     ) {
         return calendarService.getOutlookCalendars(headers, query);
     }

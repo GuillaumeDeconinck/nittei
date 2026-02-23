@@ -1,10 +1,13 @@
 package com.meetsmore.nittei.api.error;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
+import jakarta.validation.ConstraintViolationException;
 import java.util.stream.Collectors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.server.ResponseStatusException;
@@ -45,6 +48,32 @@ public class ApiExceptionHandler {
             ? "Failed to deserialize the JSON body into the target type: " + reason
             : "Failed to deserialize the JSON body into the target type: " + fieldPath + ": " + reason;
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(message);
+    }
+
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<String> handleMethodArgumentNotValid(MethodArgumentNotValidException ex) {
+        String details = ex.getBindingResult().getFieldErrors().stream()
+            .map(this::formatFieldError)
+            .collect(Collectors.joining(", "));
+        String message = details.isBlank() ? "Validation failed" : "Validation failed: " + details;
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(message);
+    }
+
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<String> handleConstraintViolation(ConstraintViolationException ex) {
+        String details = ex.getConstraintViolations().stream()
+            .map(v -> v.getPropertyPath() + ": " + v.getMessage())
+            .collect(Collectors.joining(", "));
+        String message = details.isBlank() ? "Validation failed" : "Validation failed: " + details;
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(message);
+    }
+
+    private String formatFieldError(FieldError error) {
+        String field = error.getField() == null || error.getField().isBlank() ? "field" : error.getField();
+        String message = error.getDefaultMessage() == null || error.getDefaultMessage().isBlank()
+            ? "is invalid"
+            : error.getDefaultMessage();
+        return field + ": " + message;
     }
 
     private Throwable rootCause(Throwable throwable) {

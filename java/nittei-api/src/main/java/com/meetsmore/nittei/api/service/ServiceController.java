@@ -3,6 +3,7 @@ package com.meetsmore.nittei.api.service;
 import com.meetsmore.nittei.api.shared.BaseApiController;
 import com.meetsmore.nittei.api.structs.service.ServiceApi;
 import com.meetsmore.nittei.api.structs.service.ServiceDtos;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -31,7 +32,7 @@ public class ServiceController extends BaseApiController {
     @PostMapping("/service")
     public ResponseEntity<ServiceApi.ServiceResponse> createService(
         @RequestHeader HttpHeaders headers,
-        @RequestBody ServiceApi.CreateServiceRequestBody body
+        @Valid @RequestBody ServiceApi.CreateServiceRequestBody body
     ) {
         return managementService.createService(headers, body);
     }
@@ -39,7 +40,7 @@ public class ServiceController extends BaseApiController {
     @GetMapping("/service/meta")
     public ResponseEntity<ServiceApi.GetServicesByMetaAPIResponse> getServicesByMeta(
         @RequestHeader HttpHeaders headers,
-        @ModelAttribute ServiceApi.GetServicesByMetaQueryParams query
+        @Valid @ModelAttribute ServiceApi.GetServicesByMetaQueryParams query
     ) {
         return managementService.getServicesByMeta(headers, query);
     }
@@ -56,7 +57,7 @@ public class ServiceController extends BaseApiController {
     public ResponseEntity<ServiceApi.ServiceResponse> updateService(
         @RequestHeader HttpHeaders headers,
         @PathVariable String serviceId,
-        @RequestBody ServiceApi.UpdateServiceRequestBody body
+        @Valid @RequestBody ServiceApi.UpdateServiceRequestBody body
     ) {
         return managementService.updateService(headers, serviceId, body);
     }
@@ -73,7 +74,7 @@ public class ServiceController extends BaseApiController {
     public ResponseEntity<ServiceApi.ServiceResourceResponse> addUserToService(
         @RequestHeader HttpHeaders headers,
         @PathVariable String serviceId,
-        @RequestBody ServiceApi.AddUserToServiceRequestBody body
+        @Valid @RequestBody ServiceApi.AddUserToServiceRequestBody body
     ) {
         return managementService.addUserToService(headers, serviceId, body);
     }
@@ -92,7 +93,7 @@ public class ServiceController extends BaseApiController {
         @RequestHeader HttpHeaders headers,
         @PathVariable String serviceId,
         @PathVariable String userId,
-        @RequestBody ServiceApi.UpdateServiceUserRequestBody body
+        @Valid @RequestBody ServiceApi.UpdateServiceUserRequestBody body
     ) {
         return managementService.updateServiceUser(headers, serviceId, userId, body);
     }
@@ -102,7 +103,7 @@ public class ServiceController extends BaseApiController {
         @RequestHeader HttpHeaders headers,
         @PathVariable String serviceId,
         @PathVariable String userId,
-        @RequestBody ServiceApi.AddBusyCalendarRequestBody body
+        @Valid @RequestBody ServiceApi.AddBusyCalendarRequestBody body
     ) {
         return managementService.addBusyCalendar(headers, serviceId, userId, body);
     }
@@ -112,7 +113,7 @@ public class ServiceController extends BaseApiController {
         @RequestHeader HttpHeaders headers,
         @PathVariable String serviceId,
         @PathVariable String userId,
-        @RequestBody ServiceApi.RemoveBusyCalendarRequestBody body
+        @Valid @RequestBody ServiceApi.RemoveBusyCalendarRequestBody body
     ) {
         return managementService.removeBusyCalendar(headers, serviceId, userId, body);
     }
@@ -121,7 +122,7 @@ public class ServiceController extends BaseApiController {
     public ResponseEntity<ServiceApi.GetServiceBookingSlotsAPIResponse> getServiceBookingSlots(
         @RequestHeader HttpHeaders headers,
         @PathVariable String serviceId,
-        @ModelAttribute ServiceApi.GetServiceBookingSlotsQueryParams query
+        @Valid @ModelAttribute ServiceApi.GetServiceBookingSlotsQueryParams query
     ) {
         return bookingService.getServiceBookingSlots(headers, serviceId, query);
     }
@@ -130,7 +131,7 @@ public class ServiceController extends BaseApiController {
     public ResponseEntity<ServiceApi.CreateServiceEventIntendAPIResponse> createServiceEventIntend(
         @RequestHeader HttpHeaders headers,
         @PathVariable String serviceId,
-        @RequestBody ServiceApi.CreateServiceEventIntendRequestBody body
+        @Valid @RequestBody ServiceApi.CreateServiceEventIntendRequestBody body
     ) {
         return bookingService.createServiceEventIntend(headers, serviceId, body);
     }
@@ -139,7 +140,7 @@ public class ServiceController extends BaseApiController {
     public ResponseEntity<ServiceApi.RemoveServiceEventIntendAPIResponse> removeServiceEventIntend(
         @RequestHeader HttpHeaders headers,
         @PathVariable String serviceId,
-        @ModelAttribute ServiceApi.RemoveServiceEventIntendQueryParams query
+        @Valid @ModelAttribute ServiceApi.RemoveServiceEventIntendQueryParams query
     ) {
         return bookingService.removeServiceEventIntend(headers, serviceId, query);
     }

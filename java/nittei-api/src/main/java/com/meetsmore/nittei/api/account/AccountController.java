@@ -2,6 +2,7 @@ package com.meetsmore.nittei.api.account;
 
 import com.meetsmore.nittei.api.shared.BaseApiController;
 import com.meetsmore.nittei.api.structs.account.AccountApi;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -26,7 +27,7 @@ public class AccountController extends BaseApiController {
 
     @PostMapping("/account")
     public ResponseEntity<AccountApi.CreateAccountResponseBody> createAccount(
-        @RequestBody AccountApi.CreateAccountRequestBody body
+        @Valid @RequestBody AccountApi.CreateAccountRequestBody body
     ) {
         return accountService.createAccount(body);
     }
@@ -39,7 +40,7 @@ public class AccountController extends BaseApiController {
     @PutMapping("/account/pubkey")
     public ResponseEntity<AccountApi.AccountResponse> setAccountPubKey(
         @RequestHeader HttpHeaders headers,
-        @RequestBody AccountApi.SetAccountPubKeyRequestBody body
+        @Valid @RequestBody AccountApi.SetAccountPubKeyRequestBody body
     ) {
         return accountService.setAccountPubKey(headers, body);
     }
@@ -47,7 +48,7 @@ public class AccountController extends BaseApiController {
     @PutMapping("/account/webhook")
     public ResponseEntity<AccountApi.AccountResponse> setAccountWebhook(
         @RequestHeader HttpHeaders headers,
-        @RequestBody AccountApi.SetAccountWebhookRequestBody body
+        @Valid @RequestBody AccountApi.SetAccountWebhookRequestBody body
     ) {
         return accountService.setAccountWebhook(headers, body);
     }
@@ -60,7 +61,7 @@ public class AccountController extends BaseApiController {
     @PutMapping("/account/integration")
     public ResponseEntity<AccountApi.AccountResponse> addAccountIntegration(
         @RequestHeader HttpHeaders headers,
-        @RequestBody AccountApi.AddAccountIntegrationRequestBody body
+        @Valid @RequestBody AccountApi.AddAccountIntegrationRequestBody body
     ) {
         return accountService.addAccountIntegration(headers, body);
     }
@@ -76,7 +77,7 @@ public class AccountController extends BaseApiController {
     @PostMapping("/account/events/search")
     public ResponseEntity<AccountApi.SearchEventsAPIResponse> accountSearchEvents(
         @RequestHeader HttpHeaders headers,
-        @RequestBody AccountApi.AccountSearchEventsRequestBody body
+        @Valid @RequestBody AccountApi.AccountSearchEventsRequestBody body
     ) {
         return accountService.accountSearchEvents(headers, body);
     }

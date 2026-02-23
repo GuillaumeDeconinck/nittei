@@ -2,6 +2,7 @@ package com.meetsmore.nittei.api.schedule;
 
 import com.meetsmore.nittei.api.shared.BaseApiController;
 import com.meetsmore.nittei.api.structs.schedule.ScheduleApi;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -29,7 +30,7 @@ public class ScheduleController extends BaseApiController {
     public ResponseEntity<ScheduleApi.ScheduleResponse> createScheduleAdmin(
         @RequestHeader HttpHeaders headers,
         @PathVariable String userId,
-        @RequestBody ScheduleApi.CreateScheduleRequestBody body
+        @Valid @RequestBody ScheduleApi.CreateScheduleRequestBody body
     ) {
         return scheduleService.createScheduleAdmin(headers, userId, body);
     }
@@ -45,7 +46,7 @@ public class ScheduleController extends BaseApiController {
     @GetMapping("/schedule/meta")
     public ResponseEntity<ScheduleApi.GetSchedulesByMetaAPIResponse> getSchedulesByMetaAdmin(
         @RequestHeader HttpHeaders headers,
-        @ModelAttribute ScheduleApi.GetSchedulesByMetaQueryParams query
+        @Valid @ModelAttribute ScheduleApi.GetSchedulesByMetaQueryParams query
     ) {
         return scheduleService.getSchedulesByMetaAdmin(headers, query);
     }
@@ -62,7 +63,7 @@ public class ScheduleController extends BaseApiController {
     public ResponseEntity<ScheduleApi.ScheduleResponse> updateScheduleAdmin(
         @RequestHeader HttpHeaders headers,
         @PathVariable String scheduleId,
-        @RequestBody ScheduleApi.UpdateScheduleRequestBody body
+        @Valid @RequestBody ScheduleApi.UpdateScheduleRequestBody body
     ) {
         return scheduleService.updateScheduleAdmin(headers, scheduleId, body);
     }
@@ -70,7 +71,7 @@ public class ScheduleController extends BaseApiController {
     @PostMapping("/schedule")
     public ResponseEntity<ScheduleApi.ScheduleResponse> createSchedule(
         @RequestHeader HttpHeaders headers,
-        @RequestBody ScheduleApi.CreateScheduleRequestBody body
+        @Valid @RequestBody ScheduleApi.CreateScheduleRequestBody body
     ) {
         return scheduleService.createSchedule(headers, body);
     }
@@ -95,7 +96,7 @@ public class ScheduleController extends BaseApiController {
     public ResponseEntity<ScheduleApi.ScheduleResponse> updateSchedule(
         @RequestHeader HttpHeaders headers,
         @PathVariable String scheduleId,
-        @RequestBody ScheduleApi.UpdateScheduleRequestBody body
+        @Valid @RequestBody ScheduleApi.UpdateScheduleRequestBody body
     ) {
         return scheduleService.updateSchedule(headers, scheduleId, body);
     }

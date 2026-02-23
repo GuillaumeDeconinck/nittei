@@ -8,6 +8,8 @@ import com.meetsmore.nittei.domain.IDQuery;
 import com.meetsmore.nittei.domain.IntegrationProvider;
 import com.meetsmore.nittei.domain.RecurrenceQuery;
 import com.meetsmore.nittei.domain.StringQuery;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 
 public final class AccountApi {
@@ -21,7 +23,9 @@ public final class AccountApi {
         }
     }
 
-    public record CreateAccountRequestBody(String code) {
+    public record CreateAccountRequestBody(
+        String code
+    ) {
     }
 
     public record CreateAccountResponseBody(AccountDtos.AccountDTO account, String secretApiKey) {
@@ -30,17 +34,21 @@ public final class AccountApi {
         }
     }
 
-    public record SetAccountPubKeyRequestBody(String publicJwtKey) {
+    public record SetAccountPubKeyRequestBody(
+        @NotBlank String publicJwtKey
+    ) {
     }
 
-    public record SetAccountWebhookRequestBody(String webhookUrl) {
+    public record SetAccountWebhookRequestBody(
+        @NotBlank String webhookUrl
+    ) {
     }
 
     public record AddAccountIntegrationRequestBody(
-        String clientId,
-        String clientSecret,
-        String redirectUri,
-        IntegrationProvider provider
+        @NotBlank String clientId,
+        @NotBlank String clientSecret,
+        @NotBlank String redirectUri,
+        @NotNull IntegrationProvider provider
     ) {
     }
 

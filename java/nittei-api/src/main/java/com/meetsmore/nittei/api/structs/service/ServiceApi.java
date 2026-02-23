@@ -12,6 +12,10 @@ import com.meetsmore.nittei.domain.User;
 import com.meetsmore.nittei.domain.booking.ServiceBookingSlot;
 import com.meetsmore.nittei.domain.booking.ServiceBookingSlots;
 import com.meetsmore.nittei.domain.booking.ServiceBookingSlotsDate;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import java.time.Instant;
 import java.util.List;
 
@@ -45,7 +49,7 @@ public final class ServiceApi {
     }
 
     public record AddUserToServiceRequestBody(
-        ID userId,
+        @NotNull ID userId,
         TimePlan availability,
         Long bufferAfter,
         Long bufferBefore,
@@ -54,10 +58,10 @@ public final class ServiceApi {
     ) {
     }
 
-    public record AddBusyCalendarRequestBody(BusyCalendarProvider busy) {
+    public record AddBusyCalendarRequestBody(@NotNull BusyCalendarProvider busy) {
     }
 
-    public record RemoveBusyCalendarRequestBody(BusyCalendarProvider busy) {
+    public record RemoveBusyCalendarRequestBody(@NotNull BusyCalendarProvider busy) {
     }
 
     public record RemoveServiceEventIntendQueryParams(Instant timestamp) {
@@ -69,7 +73,12 @@ public final class ServiceApi {
         }
     }
 
-    public record CreateServiceEventIntendRequestBody(List<ID> hostUserIds, Instant timestamp, long duration, long interval) {
+    public record CreateServiceEventIntendRequestBody(
+        @NotEmpty List<ID> hostUserIds,
+        @NotNull Instant timestamp,
+        @Positive long duration,
+        @Positive long interval
+    ) {
     }
 
     public record CreateServiceEventIntendAPIResponse(List<UserDtos.UserDTO> selectedHosts, boolean createEventForHosts) {
@@ -88,11 +97,11 @@ public final class ServiceApi {
     }
 
     public record GetServiceBookingSlotsQueryParams(
-        String timezone,
-        long duration,
-        long interval,
-        String startDate,
-        String endDate,
+        @NotBlank String timezone,
+        @Positive long duration,
+        @Positive long interval,
+        @NotBlank String startDate,
+        @NotBlank String endDate,
         String hostUserIds
     ) {
     }

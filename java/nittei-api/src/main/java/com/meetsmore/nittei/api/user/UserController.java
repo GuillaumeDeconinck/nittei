@@ -5,6 +5,7 @@ import com.meetsmore.nittei.api.structs.calendar.CalendarApi;
 import com.meetsmore.nittei.api.structs.user.UserApi;
 import com.meetsmore.nittei.domain.EventInstance;
 import com.meetsmore.nittei.domain.ID;
+import jakarta.validation.Valid;
 import java.util.List;
 import java.util.Map;
 import org.springframework.http.HttpHeaders;
@@ -34,7 +35,7 @@ public class UserController extends BaseApiController {
     @PostMapping("/user")
     public ResponseEntity<UserApi.UserResponse> createUser(
         @RequestHeader HttpHeaders headers,
-        @RequestBody UserApi.CreateUserRequestBody body
+        @Valid @RequestBody UserApi.CreateUserRequestBody body
     ) {
         return userService.createUser(headers, body);
     }
@@ -42,7 +43,7 @@ public class UserController extends BaseApiController {
     @GetMapping("/user/meta")
     public ResponseEntity<UserApi.GetUsersByMetaAPIResponse> getUsersByMeta(
         @RequestHeader HttpHeaders headers,
-        @ModelAttribute UserApi.GetUsersByMetaQueryParams query
+        @Valid @ModelAttribute UserApi.GetUsersByMetaQueryParams query
     ) {
         return userService.getUsersByMeta(headers, query);
     }
@@ -67,7 +68,7 @@ public class UserController extends BaseApiController {
     public ResponseEntity<UserApi.UserResponse> updateUser(
         @RequestHeader HttpHeaders headers,
         @PathVariable String userId,
-        @RequestBody UserApi.UpdateUserRequestBody body
+        @Valid @RequestBody UserApi.UpdateUserRequestBody body
     ) {
         return userService.updateUser(headers, userId, body);
     }
@@ -84,7 +85,7 @@ public class UserController extends BaseApiController {
     public ResponseEntity<UserApi.UserResponse> oauthIntegrationAdmin(
         @RequestHeader HttpHeaders headers,
         @PathVariable String userId,
-        @RequestBody UserApi.OAuthIntegrationRequestBody body
+        @Valid @RequestBody UserApi.OAuthIntegrationRequestBody body
     ) {
         return userService.oauthIntegrationAdmin(headers, userId, body);
     }
@@ -106,7 +107,7 @@ public class UserController extends BaseApiController {
     @PostMapping("/me/oauth")
     public ResponseEntity<UserApi.UserResponse> oauthIntegration(
         @RequestHeader HttpHeaders headers,
-        @RequestBody UserApi.OAuthIntegrationRequestBody body
+        @Valid @RequestBody UserApi.OAuthIntegrationRequestBody body
     ) {
         return userService.oauthIntegration(headers, body);
     }
@@ -123,7 +124,7 @@ public class UserController extends BaseApiController {
     public ResponseEntity<CalendarApi.GetUserFreeBusyAPIResponse> getUserFreebusy(
         @RequestHeader HttpHeaders headers,
         @PathVariable String userId,
-        @ModelAttribute CalendarApi.GetUserFreeBusyQueryParams query,
+        @Valid @ModelAttribute CalendarApi.GetUserFreeBusyQueryParams query,
         @RequestParam(name = "calendarIds", required = false) String calendarIdsRaw
     ) {
         return userService.getUserFreebusy(headers, userId, query, calendarIdsRaw);
@@ -132,7 +133,7 @@ public class UserController extends BaseApiController {
     @PostMapping("/user/freebusy")
     public ResponseEntity<Map<ID, List<EventInstance>>> getMultipleUsersFreebusy(
         @RequestHeader HttpHeaders headers,
-        @RequestBody CalendarApi.MultipleFreeBusyRequestBody body
+        @Valid @RequestBody CalendarApi.MultipleFreeBusyRequestBody body
     ) {
         return userService.getMultipleUsersFreebusy(headers, body);
     }
