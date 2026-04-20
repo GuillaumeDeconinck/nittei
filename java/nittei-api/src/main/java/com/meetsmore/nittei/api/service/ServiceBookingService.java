@@ -418,7 +418,7 @@ public class ServiceBookingService {
         return List.of();
     }
 
-    private boolean scheduleRuleMatchesDate(com.meetsmore.nittei.domain.ScheduleRule rule, LocalDate date) {
+    static boolean scheduleRuleMatchesDate(com.meetsmore.nittei.domain.ScheduleRule rule, LocalDate date) {
         if (rule == null) {
             return false;
         }
@@ -426,6 +426,10 @@ public class ServiceBookingService {
         Object value = rule.value();
         if (type == null || value == null) {
             return true;
+        }
+        if ("date".equalsIgnoreCase(type)) {
+            LocalDate normalizedDate = parseScheduleRuleDate(value);
+            return normalizedDate != null && normalizedDate.equals(date);
         }
         if (!"wday".equalsIgnoreCase(type)) {
             return true;
@@ -440,6 +444,25 @@ public class ServiceBookingService {
             case SUNDAY -> "Sun";
         };
         return day.equalsIgnoreCase(String.valueOf(value));
+    }
+
+    private static LocalDate parseScheduleRuleDate(Object value) {
+        if (value == null) {
+            return null;
+        }
+        String[] parts = String.valueOf(value).trim().split("-");
+        if (parts.length != 3) {
+            return null;
+        }
+        try {
+            return LocalDate.of(
+                Integer.parseInt(parts[0]),
+                Integer.parseInt(parts[1]),
+                Integer.parseInt(parts[2])
+            );
+        } catch (RuntimeException ignored) {
+            return null;
+        }
     }
 
     private Interval parseScheduleInterval(LocalDate date, ZoneId zone, Map<String, Object> raw, BookingWindow bookingWindow) {
