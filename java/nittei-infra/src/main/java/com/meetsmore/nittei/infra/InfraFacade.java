@@ -8,19 +8,19 @@ import org.springframework.stereotype.Component;
 @Component
 public class InfraFacade {
 
-    private final InfraSetupService setupService;
-    private final AppConfig appConfig;
+  private final InfraSetupService setupService;
+  private final AppConfig appConfig;
 
-    public InfraFacade(InfraSetupService setupService, AppConfig appConfig) {
-        this.setupService = setupService;
-        this.appConfig = appConfig;
-    }
+  public InfraFacade(InfraSetupService setupService, AppConfig appConfig) {
+    this.setupService = setupService;
+    this.appConfig = appConfig;
+  }
 
-    public NitteiContext setupContext() {
-        return setupService.setupContext();
-    }
+  public NitteiContext setupContext() {
+    return setupService.setupContext();
+  }
 
-    public void runMigration() {
-        setupService.runMigration(appConfig);
-    }
+  public void runMigration() {
+    setupService.runMigration(appConfig);
+  }
 }

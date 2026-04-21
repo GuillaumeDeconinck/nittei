@@ -16,6 +16,4 @@ public record Repositories(
     ServiceUserBusyCalendarRepository serviceUserBusyCalendars,
     StatusRepository status,
     UserRepository users,
-    UserIntegrationRepository userIntegrations
-) {
-}
+    UserIntegrationRepository userIntegrations) {}

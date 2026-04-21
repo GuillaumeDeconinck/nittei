@@ -26,115 +26,98 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1")
 public class UserController extends BaseApiController {
 
-    private final UserApplicationService userService;
+  private final UserApplicationService userService;
 
-    public UserController(UserApplicationService userService) {
-        this.userService = userService;
-    }
+  public UserController(UserApplicationService userService) {
+    this.userService = userService;
+  }
 
-    @PostMapping("/user")
-    public ResponseEntity<UserApi.UserResponse> createUser(
-        @RequestHeader HttpHeaders headers,
-        @Valid @RequestBody UserApi.CreateUserRequestBody body
-    ) {
-        return userService.createUser(headers, body);
-    }
+  @PostMapping("/user")
+  public ResponseEntity<UserApi.UserResponse> createUser(
+      @RequestHeader HttpHeaders headers, @Valid @RequestBody UserApi.CreateUserRequestBody body) {
+    return userService.createUser(headers, body);
+  }
 
-    @GetMapping("/user/meta")
-    public ResponseEntity<UserApi.GetUsersByMetaAPIResponse> getUsersByMeta(
-        @RequestHeader HttpHeaders headers,
-        @Valid @ModelAttribute UserApi.GetUsersByMetaQueryParams query
-    ) {
-        return userService.getUsersByMeta(headers, query);
-    }
+  @GetMapping("/user/meta")
+  public ResponseEntity<UserApi.GetUsersByMetaAPIResponse> getUsersByMeta(
+      @RequestHeader HttpHeaders headers,
+      @Valid @ModelAttribute UserApi.GetUsersByMetaQueryParams query) {
+    return userService.getUsersByMeta(headers, query);
+  }
 
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<UserApi.UserResponse> getUser(
-        @RequestHeader HttpHeaders headers,
-        @PathVariable String userId
-    ) {
-        return userService.getUser(headers, userId);
-    }
+  @GetMapping("/user/{userId}")
+  public ResponseEntity<UserApi.UserResponse> getUser(
+      @RequestHeader HttpHeaders headers, @PathVariable String userId) {
+    return userService.getUser(headers, userId);
+  }
 
-    @GetMapping("/user/external_id/{externalId}")
-    public ResponseEntity<UserApi.UserResponse> getUserByExternalId(
-        @RequestHeader HttpHeaders headers,
-        @PathVariable String externalId
-    ) {
-        return userService.getUserByExternalId(headers, externalId);
-    }
+  @GetMapping("/user/external_id/{externalId}")
+  public ResponseEntity<UserApi.UserResponse> getUserByExternalId(
+      @RequestHeader HttpHeaders headers, @PathVariable String externalId) {
+    return userService.getUserByExternalId(headers, externalId);
+  }
 
-    @PutMapping("/user/{userId}")
-    public ResponseEntity<UserApi.UserResponse> updateUser(
-        @RequestHeader HttpHeaders headers,
-        @PathVariable String userId,
-        @Valid @RequestBody UserApi.UpdateUserRequestBody body
-    ) {
-        return userService.updateUser(headers, userId, body);
-    }
+  @PutMapping("/user/{userId}")
+  public ResponseEntity<UserApi.UserResponse> updateUser(
+      @RequestHeader HttpHeaders headers,
+      @PathVariable String userId,
+      @Valid @RequestBody UserApi.UpdateUserRequestBody body) {
+    return userService.updateUser(headers, userId, body);
+  }
 
-    @DeleteMapping("/user/{userId}")
-    public ResponseEntity<UserApi.UserResponse> deleteUser(
-        @RequestHeader HttpHeaders headers,
-        @PathVariable String userId
-    ) {
-        return userService.deleteUser(headers, userId);
-    }
+  @DeleteMapping("/user/{userId}")
+  public ResponseEntity<UserApi.UserResponse> deleteUser(
+      @RequestHeader HttpHeaders headers, @PathVariable String userId) {
+    return userService.deleteUser(headers, userId);
+  }
 
-    @PostMapping("/user/{userId}/oauth")
-    public ResponseEntity<UserApi.UserResponse> oauthIntegrationAdmin(
-        @RequestHeader HttpHeaders headers,
-        @PathVariable String userId,
-        @Valid @RequestBody UserApi.OAuthIntegrationRequestBody body
-    ) {
-        return userService.oauthIntegrationAdmin(headers, userId, body);
-    }
+  @PostMapping("/user/{userId}/oauth")
+  public ResponseEntity<UserApi.UserResponse> oauthIntegrationAdmin(
+      @RequestHeader HttpHeaders headers,
+      @PathVariable String userId,
+      @Valid @RequestBody UserApi.OAuthIntegrationRequestBody body) {
+    return userService.oauthIntegrationAdmin(headers, userId, body);
+  }
 
-    @DeleteMapping("/user/{userId}/oauth/{provider}")
-    public ResponseEntity<UserApi.UserResponse> removeIntegrationAdmin(
-        @RequestHeader HttpHeaders headers,
-        @PathVariable String userId,
-        @PathVariable String provider
-    ) {
-        return userService.removeIntegrationAdmin(headers, userId, provider);
-    }
+  @DeleteMapping("/user/{userId}/oauth/{provider}")
+  public ResponseEntity<UserApi.UserResponse> removeIntegrationAdmin(
+      @RequestHeader HttpHeaders headers,
+      @PathVariable String userId,
+      @PathVariable String provider) {
+    return userService.removeIntegrationAdmin(headers, userId, provider);
+  }
 
-    @GetMapping("/me")
-    public ResponseEntity<UserApi.UserResponse> getMe(@RequestHeader HttpHeaders headers) {
-        return userService.getMe(headers);
-    }
+  @GetMapping("/me")
+  public ResponseEntity<UserApi.UserResponse> getMe(@RequestHeader HttpHeaders headers) {
+    return userService.getMe(headers);
+  }
 
-    @PostMapping("/me/oauth")
-    public ResponseEntity<UserApi.UserResponse> oauthIntegration(
-        @RequestHeader HttpHeaders headers,
-        @Valid @RequestBody UserApi.OAuthIntegrationRequestBody body
-    ) {
-        return userService.oauthIntegration(headers, body);
-    }
+  @PostMapping("/me/oauth")
+  public ResponseEntity<UserApi.UserResponse> oauthIntegration(
+      @RequestHeader HttpHeaders headers,
+      @Valid @RequestBody UserApi.OAuthIntegrationRequestBody body) {
+    return userService.oauthIntegration(headers, body);
+  }
 
-    @DeleteMapping("/me/oauth/{provider}")
-    public ResponseEntity<UserApi.UserResponse> removeIntegration(
-        @RequestHeader HttpHeaders headers,
-        @PathVariable String provider
-    ) {
-        return userService.removeIntegration(headers, provider);
-    }
+  @DeleteMapping("/me/oauth/{provider}")
+  public ResponseEntity<UserApi.UserResponse> removeIntegration(
+      @RequestHeader HttpHeaders headers, @PathVariable String provider) {
+    return userService.removeIntegration(headers, provider);
+  }
 
-    @GetMapping("/user/{userId}/freebusy")
-    public ResponseEntity<CalendarApi.GetUserFreeBusyAPIResponse> getUserFreebusy(
-        @RequestHeader HttpHeaders headers,
-        @PathVariable String userId,
-        @Valid @ModelAttribute CalendarApi.GetUserFreeBusyQueryParams query,
-        @RequestParam(name = "calendarIds", required = false) String calendarIdsRaw
-    ) {
-        return userService.getUserFreebusy(headers, userId, query, calendarIdsRaw);
-    }
+  @GetMapping("/user/{userId}/freebusy")
+  public ResponseEntity<CalendarApi.GetUserFreeBusyAPIResponse> getUserFreebusy(
+      @RequestHeader HttpHeaders headers,
+      @PathVariable String userId,
+      @Valid @ModelAttribute CalendarApi.GetUserFreeBusyQueryParams query,
+      @RequestParam(name = "calendarIds", required = false) String calendarIdsRaw) {
+    return userService.getUserFreebusy(headers, userId, query, calendarIdsRaw);
+  }
 
-    @PostMapping("/user/freebusy")
-    public ResponseEntity<Map<ID, List<EventInstance>>> getMultipleUsersFreebusy(
-        @RequestHeader HttpHeaders headers,
-        @Valid @RequestBody CalendarApi.MultipleFreeBusyRequestBody body
-    ) {
-        return userService.getMultipleUsersFreebusy(headers, body);
-    }
+  @PostMapping("/user/freebusy")
+  public ResponseEntity<Map<ID, List<EventInstance>>> getMultipleUsersFreebusy(
+      @RequestHeader HttpHeaders headers,
+      @Valid @RequestBody CalendarApi.MultipleFreeBusyRequestBody body) {
+    return userService.getMultipleUsersFreebusy(headers, body);
+  }
 }

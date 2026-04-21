@@ -29,6 +29,4 @@ public record CalendarEvent(
     ID accountId,
     List<CalendarEventReminder> reminders,
     ID serviceId,
-    Object metadata
-) {
-}
+    Object metadata) {}

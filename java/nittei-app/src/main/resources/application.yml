@@ -12,6 +12,11 @@ spring:
   lifecycle:
     timeout-per-shutdown-phase: 30s
 
+logging:
+  structured:
+    format:
+      console: ${NITTEI_LOG_CONSOLE_FORMAT:logstash}
+
 management:
   endpoints:
     web:

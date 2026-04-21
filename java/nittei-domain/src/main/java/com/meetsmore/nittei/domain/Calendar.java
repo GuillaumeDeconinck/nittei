@@ -7,6 +7,4 @@ public record Calendar(
     String name,
     String key,
     CalendarSettings settings,
-    Object metadata
-) {
-}
+    Object metadata) {}

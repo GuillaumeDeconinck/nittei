@@ -1,4 +1,3 @@
 package com.meetsmore.nittei.domain;
 
-public record AccountWebhookSettings(String url, String key) {
-}
+public record AccountWebhookSettings(String url, String key) {}

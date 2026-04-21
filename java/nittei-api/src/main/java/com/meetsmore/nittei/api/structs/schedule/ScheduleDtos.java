@@ -7,18 +7,17 @@ import java.util.List;
 
 public final class ScheduleDtos {
 
-    private ScheduleDtos() {
-    }
+  private ScheduleDtos() {}
 
-    public record ScheduleDTO(ID id, ID userId, List<ScheduleRule> rules, String timezone, Object metadata) {
-        public static ScheduleDTO from(Schedule schedule) {
-            return new ScheduleDTO(
-                schedule.id(),
-                schedule.userId(),
-                schedule.rules(),
-                schedule.timezone(),
-                schedule.metadata()
-            );
-        }
+  public record ScheduleDTO(
+      ID id, ID userId, List<ScheduleRule> rules, String timezone, Object metadata) {
+    public static ScheduleDTO from(Schedule schedule) {
+      return new ScheduleDTO(
+          schedule.id(),
+          schedule.userId(),
+          schedule.rules(),
+          schedule.timezone(),
+          schedule.metadata());
     }
+  }
 }

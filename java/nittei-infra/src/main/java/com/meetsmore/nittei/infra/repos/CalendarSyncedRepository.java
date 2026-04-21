@@ -5,7 +5,9 @@ import com.meetsmore.nittei.domain.SyncedCalendar;
 import java.util.List;
 
 public interface CalendarSyncedRepository {
-    void insert(SyncedCalendar calendar);
-    void delete(SyncedCalendar calendar);
-    List<SyncedCalendar> findByCalendar(ID calendarId);
+  void insert(SyncedCalendar calendar);
+
+  void delete(SyncedCalendar calendar);
+
+  List<SyncedCalendar> findByCalendar(ID calendarId);
 }

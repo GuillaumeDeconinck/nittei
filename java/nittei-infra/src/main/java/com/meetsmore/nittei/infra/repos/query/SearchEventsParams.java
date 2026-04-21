@@ -19,6 +19,4 @@ public record SearchEventsParams(
     RecurrenceQuery recurrence,
     Object metadata,
     DateTimeQuery createdAt,
-    DateTimeQuery updatedAt
-) {
-}
+    DateTimeQuery updatedAt) {}

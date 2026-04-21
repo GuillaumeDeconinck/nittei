@@ -9,27 +9,27 @@ import org.springframework.stereotype.Component;
 @Component
 public class ReminderJobs {
 
-    private static final Logger log = LoggerFactory.getLogger(ReminderJobs.class);
+  private static final Logger log = LoggerFactory.getLogger(ReminderJobs.class);
 
-    private final AppConfig appConfig;
+  private final AppConfig appConfig;
 
-    public ReminderJobs(AppConfig appConfig) {
-        this.appConfig = appConfig;
+  public ReminderJobs(AppConfig appConfig) {
+    this.appConfig = appConfig;
+  }
+
+  @Scheduled(fixedRate = 30 * 60 * 1000L)
+  public void generateReminders() {
+    if (appConfig.isDisableReminders()) {
+      return;
     }
+    log.debug("[reminder_generation_job] Triggered placeholder reminder generation");
+  }
 
-    @Scheduled(fixedRate = 30 * 60 * 1000L)
-    public void generateReminders() {
-        if (appConfig.isDisableReminders()) {
-            return;
-        }
-        log.debug("[reminder_generation_job] Triggered placeholder reminder generation");
+  @Scheduled(cron = "0 * * * * *")
+  public void sendReminders() {
+    if (appConfig.isDisableReminders()) {
+      return;
     }
-
-    @Scheduled(cron = "0 * * * * *")
-    public void sendReminders() {
-        if (appConfig.isDisableReminders()) {
-            return;
-        }
-        log.debug("[send_reminders_job] Triggered placeholder reminder dispatch");
-    }
+    log.debug("[send_reminders_job] Triggered placeholder reminder dispatch");
+  }
 }

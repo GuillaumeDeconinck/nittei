@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public record ID(@JsonValue String value) {
 
-    public static ID random() {
-        return new ID(UUID.randomUUID().toString());
-    }
+  public static ID random() {
+    return new ID(UUID.randomUUID().toString());
+  }
 }

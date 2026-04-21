@@ -6,6 +6,4 @@ public record SyncedCalendarEvent(
     ID userId,
     String extEventId,
     String extCalendarId,
-    IntegrationProvider provider
-) {
-}
+    IntegrationProvider provider) {}

@@ -5,6 +5,7 @@ import java.time.Instant;
 import java.util.List;
 
 public interface EventReminderGenerationJobsRepository {
-    void bulkInsert(List<EventRemindersExpansionJob> jobs);
-    List<EventRemindersExpansionJob> deleteAllBefore(Instant before);
+  void bulkInsert(List<EventRemindersExpansionJob> jobs);
+
+  List<EventRemindersExpansionJob> deleteAllBefore(Instant before);
 }

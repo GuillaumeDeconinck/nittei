@@ -5,6 +5,4 @@ public record AccountIntegration(
     String clientId,
     String clientSecret,
     String redirectUri,
-    IntegrationProvider provider
-) {
-}
+    IntegrationProvider provider) {}

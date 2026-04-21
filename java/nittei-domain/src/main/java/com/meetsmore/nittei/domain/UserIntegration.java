@@ -6,6 +6,4 @@ public record UserIntegration(
     IntegrationProvider provider,
     String refreshToken,
     String accessToken,
-    long accessTokenExpiresTs
-) {
-}
+    long accessTokenExpiresTs) {}

@@ -7,6 +7,4 @@ public record ServiceResource(
     long bufferAfter,
     long bufferBefore,
     long closestBookingTime,
-    Long furthestBookingTime
-) {
-}
+    Long furthestBookingTime) {}

@@ -19,66 +19,60 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1")
 public class AccountController extends BaseApiController {
 
-    private final AccountApplicationService accountService;
+  private final AccountApplicationService accountService;
 
-    public AccountController(AccountApplicationService accountService) {
-        this.accountService = accountService;
-    }
+  public AccountController(AccountApplicationService accountService) {
+    this.accountService = accountService;
+  }
 
-    @PostMapping("/account")
-    public ResponseEntity<AccountApi.CreateAccountResponseBody> createAccount(
-        @Valid @RequestBody AccountApi.CreateAccountRequestBody body
-    ) {
-        return accountService.createAccount(body);
-    }
+  @PostMapping("/account")
+  public ResponseEntity<AccountApi.CreateAccountResponseBody> createAccount(
+      @Valid @RequestBody AccountApi.CreateAccountRequestBody body) {
+    return accountService.createAccount(body);
+  }
 
-    @GetMapping("/account")
-    public ResponseEntity<AccountApi.AccountResponse> getAccount(@RequestHeader HttpHeaders headers) {
-        return accountService.getAccount(headers);
-    }
+  @GetMapping("/account")
+  public ResponseEntity<AccountApi.AccountResponse> getAccount(@RequestHeader HttpHeaders headers) {
+    return accountService.getAccount(headers);
+  }
 
-    @PutMapping("/account/pubkey")
-    public ResponseEntity<AccountApi.AccountResponse> setAccountPubKey(
-        @RequestHeader HttpHeaders headers,
-        @Valid @RequestBody AccountApi.SetAccountPubKeyRequestBody body
-    ) {
-        return accountService.setAccountPubKey(headers, body);
-    }
+  @PutMapping("/account/pubkey")
+  public ResponseEntity<AccountApi.AccountResponse> setAccountPubKey(
+      @RequestHeader HttpHeaders headers,
+      @Valid @RequestBody AccountApi.SetAccountPubKeyRequestBody body) {
+    return accountService.setAccountPubKey(headers, body);
+  }
 
-    @PutMapping("/account/webhook")
-    public ResponseEntity<AccountApi.AccountResponse> setAccountWebhook(
-        @RequestHeader HttpHeaders headers,
-        @Valid @RequestBody AccountApi.SetAccountWebhookRequestBody body
-    ) {
-        return accountService.setAccountWebhook(headers, body);
-    }
+  @PutMapping("/account/webhook")
+  public ResponseEntity<AccountApi.AccountResponse> setAccountWebhook(
+      @RequestHeader HttpHeaders headers,
+      @Valid @RequestBody AccountApi.SetAccountWebhookRequestBody body) {
+    return accountService.setAccountWebhook(headers, body);
+  }
 
-    @DeleteMapping("/account/webhook")
-    public ResponseEntity<AccountApi.AccountResponse> deleteAccountWebhook(@RequestHeader HttpHeaders headers) {
-        return accountService.deleteAccountWebhook(headers);
-    }
+  @DeleteMapping("/account/webhook")
+  public ResponseEntity<AccountApi.AccountResponse> deleteAccountWebhook(
+      @RequestHeader HttpHeaders headers) {
+    return accountService.deleteAccountWebhook(headers);
+  }
 
-    @PutMapping("/account/integration")
-    public ResponseEntity<AccountApi.AccountResponse> addAccountIntegration(
-        @RequestHeader HttpHeaders headers,
-        @Valid @RequestBody AccountApi.AddAccountIntegrationRequestBody body
-    ) {
-        return accountService.addAccountIntegration(headers, body);
-    }
+  @PutMapping("/account/integration")
+  public ResponseEntity<AccountApi.AccountResponse> addAccountIntegration(
+      @RequestHeader HttpHeaders headers,
+      @Valid @RequestBody AccountApi.AddAccountIntegrationRequestBody body) {
+    return accountService.addAccountIntegration(headers, body);
+  }
 
-    @DeleteMapping("/account/integration/{provider}")
-    public ResponseEntity<AccountApi.AccountResponse> removeAccountIntegration(
-        @RequestHeader HttpHeaders headers,
-        @PathVariable String provider
-    ) {
-        return accountService.removeAccountIntegration(headers, provider);
-    }
+  @DeleteMapping("/account/integration/{provider}")
+  public ResponseEntity<AccountApi.AccountResponse> removeAccountIntegration(
+      @RequestHeader HttpHeaders headers, @PathVariable String provider) {
+    return accountService.removeAccountIntegration(headers, provider);
+  }
 
-    @PostMapping("/account/events/search")
-    public ResponseEntity<AccountApi.SearchEventsAPIResponse> accountSearchEvents(
-        @RequestHeader HttpHeaders headers,
-        @Valid @RequestBody AccountApi.AccountSearchEventsRequestBody body
-    ) {
-        return accountService.accountSearchEvents(headers, body);
-    }
+  @PostMapping("/account/events/search")
+  public ResponseEntity<AccountApi.SearchEventsAPIResponse> accountSearchEvents(
+      @RequestHeader HttpHeaders headers,
+      @Valid @RequestBody AccountApi.AccountSearchEventsRequestBody body) {
+    return accountService.accountSearchEvents(headers, body);
+  }
 }

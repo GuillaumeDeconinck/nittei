@@ -5,12 +5,11 @@ import com.fasterxml.jackson.annotation.JsonValue;
 
 public record PEMKey(String value) {
 
-    @JsonCreator
-    public PEMKey {
-    }
+  @JsonCreator
+  public PEMKey {}
 
-    @JsonValue
-    public String jsonValue() {
-        return value;
-    }
+  @JsonValue
+  public String jsonValue() {
+    return value;
+  }
 }

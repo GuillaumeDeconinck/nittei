@@ -9,20 +9,21 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication(scanBasePackages = "com.meetsmore.nittei")
 public class NitteiJavaApplication {
 
-    private static final Logger log = LoggerFactory.getLogger(NitteiJavaApplication.class);
+  private static final Logger log = LoggerFactory.getLogger(NitteiJavaApplication.class);
 
-    public static void main(String[] args) {
-        installCustomPanicHook();
-        SpringApplication.run(NitteiJavaApplication.class, args);
-    }
+  public static void main(String[] args) {
+    installCustomPanicHook();
+    SpringApplication.run(NitteiJavaApplication.class, args);
+  }
 
-    private static void installCustomPanicHook() {
-        UncaughtExceptionHandler currentHandler = Thread.getDefaultUncaughtExceptionHandler();
-        Thread.setDefaultUncaughtExceptionHandler((thread, throwable) -> {
-            log.error("Application panic occurred on thread {}", thread.getName(), throwable);
-            if (currentHandler != null) {
-                currentHandler.uncaughtException(thread, throwable);
-            }
+  private static void installCustomPanicHook() {
+    UncaughtExceptionHandler currentHandler = Thread.getDefaultUncaughtExceptionHandler();
+    Thread.setDefaultUncaughtExceptionHandler(
+        (thread, throwable) -> {
+          log.error("Application panic occurred on thread {}", thread.getName(), throwable);
+          if (currentHandler != null) {
+            currentHandler.uncaughtException(thread, throwable);
+          }
         });
-    }
+  }
 }

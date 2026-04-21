@@ -15,6 +15,4 @@ public record RRuleOptions(
     List<Month> bymonth,
     List<Integer> byyearday,
     List<Integer> byweekno,
-    String weekstart
-) {
-}
+    String weekstart) {}

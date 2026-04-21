@@ -9,6 +9,4 @@ public record SearchEventsForUserParams(
     List<ID> calendarIds,
     SearchEventsParams searchEventsParams,
     CalendarEventSort sort,
-    Integer limit
-) {
-}
+    Integer limit) {}

@@ -6,8 +6,11 @@ import com.meetsmore.nittei.domain.UserIntegration;
 import java.util.List;
 
 public interface UserIntegrationRepository {
-    void insert(UserIntegration integration);
-    void save(UserIntegration integration);
-    List<UserIntegration> find(ID userId);
-    void delete(ID userId, IntegrationProvider provider);
+  void insert(UserIntegration integration);
+
+  void save(UserIntegration integration);
+
+  List<UserIntegration> find(ID userId);
+
+  void delete(ID userId, IntegrationProvider provider);
 }

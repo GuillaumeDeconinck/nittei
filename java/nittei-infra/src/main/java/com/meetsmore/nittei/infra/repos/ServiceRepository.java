@@ -8,10 +8,15 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ServiceRepository {
-    void insert(Service service);
-    void save(Service service);
-    Optional<Service> find(ID serviceId);
-    Optional<ServiceWithUsers> findWithUsers(ID serviceId);
-    void delete(ID serviceId);
-    List<Service> findByMetadata(MetadataFindQuery query);
+  void insert(Service service);
+
+  void save(Service service);
+
+  Optional<Service> find(ID serviceId);
+
+  Optional<ServiceWithUsers> findWithUsers(ID serviceId);
+
+  void delete(ID serviceId);
+
+  List<Service> findByMetadata(MetadataFindQuery query);
 }

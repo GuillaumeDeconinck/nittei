@@ -14,6 +14,4 @@ public record GoogleCalendarListEntry(
     Boolean hidden,
     Boolean selected,
     Boolean primary,
-    Boolean deleted
-) {
-}
+    Boolean deleted) {}

@@ -38,6 +38,17 @@ cleanup() {
 # Set up a trap to call the cleanup function on EXIT, SIGINT, and SIGTERM
 trap cleanup EXIT SIGINT SIGTERM
 
+ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+MAVEN_BIN="${MAVEN_BIN:-}"
+
+if [ -z "$MAVEN_BIN" ]; then
+  if [ -x "$ROOT_DIR/mvnw" ]; then
+    MAVEN_BIN="$ROOT_DIR/mvnw"
+  else
+    MAVEN_BIN="mvn"
+  fi
+fi
+
 # Search for a free port to bind the temporary PG container
 BASE_PORT=1234
 INCREMENT=1
@@ -63,7 +74,7 @@ echo "Building Java backend..."
 echo "########################"
 echo ""
 
-mvn -q -f java/pom.xml -pl nittei-app -am -DskipTests install
+"$MAVEN_BIN" -q -f "$ROOT_DIR/java/pom.xml" -pl nittei-app -am -DskipTests install
 
 # Launch the resource reaper (like testcontainers)
 docker run -d --name ryuk --rm -v /var/run/docker.sock:/var/run/docker.sock -e RYUK_VERBOSE=true -e RYUK_PORT=8080 -p 8080:8080 testcontainers/ryuk:0.8.1 >/dev/null 2>&1
@@ -136,9 +147,9 @@ echo "##################################################"
 echo ""
 
 if [ -n "$DEBUG" ]; then
-  mvn -f java/nittei-app/pom.xml org.springframework.boot:spring-boot-maven-plugin:3.5.0:run &
+  "$MAVEN_BIN" -f "$ROOT_DIR/java/pom.xml" -pl nittei-app -am org.springframework.boot:spring-boot-maven-plugin:3.5.0:run &
 else
-  mvn -q -f java/nittei-app/pom.xml org.springframework.boot:spring-boot-maven-plugin:3.5.0:run >/dev/null 2>&1 &
+  "$MAVEN_BIN" -q -f "$ROOT_DIR/java/pom.xml" -pl nittei-app -am org.springframework.boot:spring-boot-maven-plugin:3.5.0:run >/dev/null 2>&1 &
 fi
 
 # Save the PID of the backend server

@@ -5,20 +5,20 @@ import com.fasterxml.jackson.annotation.JsonValue;
 import java.util.Locale;
 
 public enum CalendarEventStatus {
-    TENTATIVE,
-    CONFIRMED,
-    CANCELLED;
+  TENTATIVE,
+  CONFIRMED,
+  CANCELLED;
 
-    @JsonCreator
-    public static CalendarEventStatus fromJson(String raw) {
-        if (raw == null) {
-            return null;
-        }
-        return CalendarEventStatus.valueOf(raw.trim().toUpperCase(Locale.ROOT));
+  @JsonCreator
+  public static CalendarEventStatus fromJson(String raw) {
+    if (raw == null) {
+      return null;
     }
+    return CalendarEventStatus.valueOf(raw.trim().toUpperCase(Locale.ROOT));
+  }
 
-    @JsonValue
-    public String toJson() {
-        return name().toLowerCase(Locale.ROOT);
-    }
+  @JsonValue
+  public String toJson() {
+    return name().toLowerCase(Locale.ROOT);
+  }
 }

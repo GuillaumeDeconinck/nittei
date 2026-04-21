@@ -11,13 +11,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/v1")
 public class StatusController {
 
-    @GetMapping("/healthcheck")
-    public ResponseEntity<Map<String, String>> healthcheck() {
-        return ResponseEntity.ok(Map.of("message", "Ok!"));
-    }
+  @GetMapping("/healthcheck")
+  public ResponseEntity<Map<String, String>> healthcheck() {
+    return ResponseEntity.ok(Map.of("message", "Ok!"));
+  }
 
-    @GetMapping(value = "/metrics", produces = MediaType.TEXT_PLAIN_VALUE)
-    public ResponseEntity<String> metrics() {
-        return ResponseEntity.ok("# metrics placeholder\n");
-    }
+  @GetMapping(value = "/metrics", produces = MediaType.TEXT_PLAIN_VALUE)
+  public ResponseEntity<String> metrics() {
+    return ResponseEntity.ok("# metrics placeholder\n");
+  }
 }
