@@ -1,0 +1,14 @@
+package com.meetsmore.nittei.api.shared.auth;
+
+public enum Permission {
+  ALL,
+  CREATE_CALENDAR,
+  DELETE_CALENDAR,
+  UPDATE_CALENDAR,
+  CREATE_CALENDAR_EVENT,
+  DELETE_CALENDAR_EVENT,
+  UPDATE_CALENDAR_EVENT,
+  CREATE_SCHEDULE,
+  UPDATE_SCHEDULE,
+  DELETE_SCHEDULE
+}

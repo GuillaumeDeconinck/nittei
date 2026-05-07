@@ -1,0 +1,56 @@
+server:
+  address: ${NITTEI_HTTP_HOST:0.0.0.0}
+  port: ${NITTEI_HTTP_PORT:8080}
+  shutdown: graceful
+  compression:
+    enabled: true
+    min-response-size: 10KB
+
+spring:
+  application:
+    name: nittei
+  lifecycle:
+    timeout-per-shutdown-phase: 30s
+
+logging:
+  structured:
+    format:
+      console: ${NITTEI_LOG_CONSOLE_FORMAT:logstash}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,prometheus
+
+springdoc:
+  api-docs:
+    path: /api-docs/openapi.json
+  swagger-ui:
+    path: /swagger-ui
+
+nittei:
+  http-host: ${NITTEI_HTTP_HOST:0.0.0.0}
+  http-port: ${NITTEI_HTTP_PORT:8080}
+  disable-reminders: ${NITTEI_DISABLE_REMINDERS:false}
+  print-runtime-info: ${NITTEI_PRINT_RUNTIME_INFO:true}
+  server-shutdown-sleep: ${NITTEI_SERVER_SHUTDOWN_SLEEP:5}
+  server-shutdown-timeout: ${NITTEI_SERVER_SHUTDOWN_TIMEOUT:10}
+  create-account-secret-code: ${NITTEI_CREATE_ACCOUNT_SECRET_CODE:create_account_dev_secret}
+  max-events-returned-by-search: ${NITTEI_MAX_EVENTS_RETURNED_BY_SEARCH:5000}
+  event-instances-query-duration-limit: ${NITTEI_EVENT_INSTANCES_QUERY_DURATION_LIMIT:25920000000}
+  booking-slots-query-duration-limit: ${NITTEI_BOOKING_SLOTS_QUERY_DURATION_LIMIT:8640000000}
+  pg:
+    database-url: ${NITTEI_PG_DATABASE_URL:jdbc:postgresql://127.0.0.1:45432/nittei?user=postgres&password=postgres}
+    skip-migrations: ${NITTEI_PG_SKIP_MIGRATIONS:true}
+    min-connections: ${NITTEI_PG_MIN_CONNECTIONS:2}
+    max-connections: ${NITTEI_PG_MAX_CONNECTIONS:5}
+  observability:
+    service-name: ${NITTEI_OBSERVABILITY_SERVICE_NAME:unknown service}
+    service-version: ${NITTEI_OBSERVABILITY_SERVICE_VERSION:unknown version}
+    service-env: ${NITTEI_OBSERVABILITY_SERVICE_ENV:unknown env}
+    disable-tracing: ${NITTEI_OBSERVABILITY_DISABLE_TRACING:false}
+    tracing-sample-rate: ${NITTEI_OBSERVABILITY_TRACING_SAMPLE_RATE:0.1}
+    otlp-tracing-endpoint: ${NITTEI_OBSERVABILITY_OTLP_TRACING_ENDPOINT:}
+    datadog-tracing-endpoint: ${NITTEI_OBSERVABILITY_DATADOG_TRACING_ENDPOINT:}
+    observe-status-endpoints: ${NITTEI_OBSERVABILITY_OBSERVE_STATUS_ENDPOINTS:false}
