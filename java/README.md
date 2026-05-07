@@ -68,6 +68,7 @@ The Java build now runs a small baseline quality gate set during `mvn verify`:
 - Java and Maven version enforcement
 - Spotless formatting checks for Java and POM files
 - JaCoCo coverage reports and minimum line coverage checks for the currently tested modules
+- Error Prone + NullAway null-safety analysis for `nittei-api`, currently in warning mode
 - SpotBugs static analysis checks for the currently gated modules
 
 Common local commands:
@@ -87,7 +88,11 @@ You can also forward normal Maven reactor flags through the helper when you want
 
 By default the helper uses `MAVEN_LOCAL_REPO=/tmp/nittei-m2` so repeated local runs stay fast and do not interfere with your main Maven cache.
 
-The repository now includes a Maven wrapper pinned to Maven `3.8.7`, and the Java helper scripts prefer that wrapper automatically. You can still override the Maven binary explicitly with `MAVEN_BIN=/path/to/mvn` if needed.
+The repository now includes a Maven wrapper pinned to Maven `3.9.14`, and the Java helper scripts prefer that wrapper automatically. You can still override the Maven binary explicitly with `MAVEN_BIN=/path/to/mvn` if needed.
+
+The checked-in Maven JVM config also sets `--sun-misc-unsafe-memory-access=allow` so Java 25 does not spam build output with `sun.misc.Unsafe` runtime warnings coming from formatter/build tooling that has not fully migrated away from those internals yet.
+
+The NullAway rollout is intentionally staged. `nittei-api` is checked during both main and test compilation, but findings are warnings for now so the full quality gate still passes while we work through the first backlog of nullness issues.
 
 The same quality command is also run in GitHub Actions via `.github/workflows/java-quality.yml`.
 

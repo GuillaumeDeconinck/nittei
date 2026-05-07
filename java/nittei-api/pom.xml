@@ -13,6 +13,7 @@
 
   <properties>
     <jacoco.minimum.line.coverage>0.10</jacoco.minimum.line.coverage>
+    <nullaway.severity>WARN</nullaway.severity>
     <spotbugs.skip>false</spotbugs.skip>
   </properties>
 
@@ -53,6 +54,11 @@
       <artifactId>spring-boot-starter-aop</artifactId>
     </dependency>
     <dependency>
+      <groupId>org.jspecify</groupId>
+      <artifactId>jspecify</artifactId>
+      <version>${jspecify.version}</version>
+    </dependency>
+    <dependency>
       <groupId>org.springdoc</groupId>
       <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
       <version>${springdoc.version}</version>
@@ -85,4 +91,35 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <proc>full</proc>
+          <showWarnings>true</showWarnings>
+          <annotationProcessorPaths>
+            <path>
+              <groupId>com.google.errorprone</groupId>
+              <artifactId>error_prone_core</artifactId>
+              <version>${errorprone.version}</version>
+            </path>
+            <path>
+              <groupId>com.uber.nullaway</groupId>
+              <artifactId>nullaway</artifactId>
+              <version>${nullaway.version}</version>
+            </path>
+          </annotationProcessorPaths>
+          <compilerArgs>
+            <arg>-XDcompilePolicy=simple</arg>
+            <arg>--should-stop=ifError=FLOW</arg>
+            <arg>-XDaddTypeAnnotationsToSymbol=true</arg>
+            <arg>-Xplugin:ErrorProne -XepDisableAllChecks -Xep:NullAway:${nullaway.severity} -XepOpt:NullAway:AnnotatedPackages=com.meetsmore.nittei.api -XepOpt:NullAway:CheckOptionalEmptiness=true -XepOpt:NullAway:AssertsEnabled=true -XepExcludedPaths:.*/target/generated-(sources|test-sources)/.*</arg>
+          </compilerArgs>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
 </project>
