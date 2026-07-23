@@ -29,6 +29,11 @@ _setup_client_node:
 dev: _setup_db
 	watchexec -r -e rs -- cargo run
 
+# Run Java backend with autoreload (ensures DB is up + migrations are applied first)
+dev_java port="5000": _setup_db
+	mvn -q -f java/pom.xml -pl nittei-app -am -DskipTests clean install
+	watchexec -r -w java -e java,xml,yml,yaml,properties -- bash ./scripts/dev_java.sh {{port}}
+
 # Prepare offline SQLx
 prepare_sqlx:
 	cd crates/infra && cargo sqlx prepare
